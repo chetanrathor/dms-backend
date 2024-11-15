@@ -38,6 +38,8 @@ export default { models };
  * @typedef {Object} Models
  * @property {import('mongoose').Model<import('./User').User>} User 
  * @property {import('mongoose').Model<import('./Role').Role>} Role 
+ * @property {import('mongoose').Model<import('./Project').Project>} Project 
+ * @property {import('mongoose').Model<import('./Document').Document>} Document 
  */
 
 /**
