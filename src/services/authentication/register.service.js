@@ -38,15 +38,12 @@ export class RegisterUserService {
             // Generate a new ObjectId for the user (optional, MongoDB handles _id automatically)
             const userId = new mongoose.Types.ObjectId(); // MongoDB will auto-generate ObjectId for _id, but we generate it here manually.
 
-            // Hash the password before saving
-            const hashedPassword = await bcrypt.hash(password, 10);
-
             // Create a new user instance
             const newUser = new User({
                 _id: userId,
                 name,
                 email,
-                password: hashedPassword,
+                password,
                 role: viewerRole._id, // Assign the viewer role to the user
             });
 
@@ -54,12 +51,8 @@ export class RegisterUserService {
             await newUser.save();
 
             // Generate JWT token for the newly created user
-            const token = JwtService.generateToken({ userId: newUser._id },'1d');
-
-            // Save the token in the user model (optional, you can store tokens in the database if needed)
-            newUser.token = token;
-            await newUser.save();
-
+            const token = JwtService.generateUserToken(newUser);
+            
             // Optionally, remove the password and token field from the returned user object
             const userResponse = newUser.toObject();
             delete userResponse.password;
@@ -69,6 +62,7 @@ export class RegisterUserService {
             return { status: 201, data: { user: userResponse, token } };
 
         } catch (error) {
+            console.log('error :>> ', error);
             // Error handling based on error type
             if (error.name === 'ValidationError') {
                 return { status: 400, message: 'Invalid data provided' };

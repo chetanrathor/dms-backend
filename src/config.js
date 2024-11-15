@@ -9,6 +9,14 @@ const config = {
   jwtSecret: process.env.JWT_SECRET,
   nodeEnv: process.env.NODE_ENV || 'development',
   jwtSecret: process.env.JWT_SECRET || '',
+  aws:{
+    host:process.env.AWS_HOST,
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_KEY,
+    region: process.env.AWS_REGION || '',
+    bucket: process.env.AWS_BUCKET,
+    s3Url: `https://${process.env.AWS_BUCKET}.s3.amazonaws.com`
+  }
 };
 
 export default config;

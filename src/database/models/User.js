@@ -11,11 +11,17 @@ const userSchema = new mongoose.Schema({
     ref: 'Role',                          // Refers to the 'Role' model
     required: true,                       // Ensures every user must have a role
   },
+  token:{
+    type: String,
+    required: false,
+    default: null,
+  }
 });
 
 // Hash password before saving user
 userSchema.pre('save', async function (next) {
   if (this.isModified('password')) {
+    console.log('this.password :>> ', this.password);
     this.password = await bcrypt.hash(this.password, 10);
   }
   next();
@@ -32,4 +38,5 @@ export default User;
  * @property {string} password - The hashed password of the user.
  * @property {Date} createdAt - The date and time when the user was created (defaults to current date).
  * @property {ObjectId} role - The role assigned to the user, referenced from the Role model.
+ * @property {string} token - The token assigned to the user.
  */

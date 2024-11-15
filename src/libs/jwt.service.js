@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import config from '../config.js';
+import db from '../database/models/index.js';
 
 dotenv.config();
 
@@ -50,6 +51,23 @@ class JwtService {
       return null; // If decoding fails, return null
     }
   }
+
+
+  static generateUserToken(user) {
+
+      const token = this.generateToken({ userId: user.id,role:user.role.type }, '1d');
+      db.models.User.updateOne({
+        _id: user._id
+      },
+        {
+          token
+        }
+      )
+      return token
+    }
+ 
+
+
 }
 
 export default JwtService;
