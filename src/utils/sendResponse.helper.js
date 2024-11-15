@@ -7,14 +7,14 @@
  * @param {Object} response - The response object returned from the service
  */
 export const handleServiceResponse = (res, response) => {
-    if (response.status === 201) {
+    if ([200,201].includes(response.status) ) {
         return res.status(201).json({
             message: 'User registered successfully',
             data: response.data,
         });
     }
 
-    return sendResponse(res,response.status)
+    return sendResponse(res,response.status,response.message)
 };
 
 /**

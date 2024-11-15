@@ -3,13 +3,14 @@ import { validateRegister } from '../../schemas/authentication/register.schema.j
 import validationErrorHandler from '../../middlewares/validationHandler.middleware.js';
 import { AuthenticationController } from '../../controllers/authentication.controller.js';
 import { validateLogin } from '../../schemas/authentication/login.schema.js';
+import { UserController } from '../../controllers/user.controller.js';
+import authenticateToken from '../../middlewares/authentication.middleware.js';
 
-const authenticationRouter = express.Router();
+const userRouter = express.Router();
 
-authenticationRouter.post('/register', validateRegister, validationErrorHandler, AuthenticationController.register);
-authenticationRouter.post('/login', validateLogin, validationErrorHandler, AuthenticationController.login);
+userRouter.get('/', authenticateToken(['admin','editor','viewer']), UserController.getUserDetails);
 
 // User Login Route with validation
 // router.post('/login', validateLogin, validationErrorHandler, AuthenticationController.login);
 
-export default authenticationRouter;
+export default userRouter;

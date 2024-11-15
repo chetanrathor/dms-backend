@@ -20,14 +20,3 @@ export const validateRegister = [
         .withMessage('Password is required'),
 ];
 
-// export const validateLogin = [
-//     body('email')
-//         .isEmail()
-//         .withMessage('Email must be a valid email address')
-//         .notEmpty()
-//         .withMessage('Email is required'),
-    
-//     body('password')
-//         .notEmpty()
-//         .withMessage('Password is required'),
-// ];
