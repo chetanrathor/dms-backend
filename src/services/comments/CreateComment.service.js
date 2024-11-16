@@ -1,4 +1,5 @@
 import S3Service from "../../libs/awsClient.js";
+import { CommentEmitter } from "../../socket-resource/emitters/comment.emitter.js";
 export class CreateCommentService {
     /**
      * Create a new project.
@@ -10,9 +11,9 @@ export class CreateCommentService {
      * @returns {Promise<Object>} - The created project or an error message.
      */
     static async execute(args, context) {
-        const { Models: { Document,Comment } } = context;
+        const { Models: { Document, Comment } } = context;
         try {
-            const { comment, isActive, documentId,userId } = args
+            const { comment, isActive, documentId, userId } = args
 
             const document = await Document.findById(documentId)
             if (!document) return {
@@ -22,14 +23,15 @@ export class CreateCommentService {
 
             const newComment = await Comment.create({
                 comment,
-                document:document._id,
+                document: document._id,
                 isActive,
                 user: userId
             });
             await Document.findByIdAndUpdate(document, {
                 $push: { comments: document._id },
             });
-            return { status: 201, data:newComment , message: 'Comment Created Successfully.' };
+            CommentEmitter.broadcastComment(newComment)
+            return { status: 201, data: newComment, message: 'Comment Created Successfully.' };
         } catch (error) {
             console.error('Error creating project:', error);
             return { status: 500, message: 'Internal Server Error' };
