@@ -5,7 +5,7 @@ export class UploadDocumentService {
         try {
             const { file } = args;
             const { Models: { Document } } = context;
-            const key  = `uploads/${Date.now()}-${file.originalname}`
+            const key  = `document/${Date.now()}-${file.originalname}`
             const data = await S3Service.uploadFile(file.buffer, key)
             return {
                 status: 200,

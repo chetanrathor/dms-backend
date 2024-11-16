@@ -15,7 +15,8 @@ const config = {
     secretAccessKey: process.env.AWS_SECRET_KEY,
     region: process.env.AWS_REGION || '',
     bucket: process.env.AWS_BUCKET,
-    s3Url: `https://${process.env.AWS_BUCKET}.s3.amazonaws.com`
+    s3Url: `https://${process.env.AWS_BUCKET}.s3.amazonaws.com`,
+    baseUrl: process.env.AWS_BASE_URL || ''
   }
 };
 

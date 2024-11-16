@@ -8,14 +8,18 @@ const userSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   role: {
     type: mongoose.Schema.Types.ObjectId,  // Reference to Role model
-    ref: 'Role',                          // Refers to the 'Role' model
+    ref: 'Roles',                          // Refers to the 'Role' model
     required: true,                       // Ensures every user must have a role
   },
   token:{
     type: String,
     required: false,
     default: null,
-  }
+  },
+  documents: [{
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Documents'
+  }],
 });
 
 // Hash password before saving user
