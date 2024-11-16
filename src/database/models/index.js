@@ -40,6 +40,7 @@ export default { models };
  * @property {import('mongoose').Model<import('./Role').Role>} Role 
  * @property {import('mongoose').Model<import('./Project').Project>} Project 
  * @property {import('mongoose').Model<import('./Document').Document>} Document 
+ * @property {import('mongoose').Model<import('./Comment').Comment>} Comment 
  */
 
 /**

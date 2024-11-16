@@ -12,7 +12,7 @@ export class GetAllDocumentsService {
         const { Models: { Document } } = context;
 
         try {
-            const documents = await Document.find().populate('projectId')
+            const documents = await Document.find().populate('project')
                 .skip(Number(offset))
                 .limit(Number(limit));
 
