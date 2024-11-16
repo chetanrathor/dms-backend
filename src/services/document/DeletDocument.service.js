@@ -1,4 +1,4 @@
-import S3Service from "../../libs/awsClient";
+import S3Service from "../../libs/awsClient.js";
 
 export class DeleteDocumentService {
     /**

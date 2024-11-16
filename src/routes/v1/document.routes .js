@@ -12,6 +12,8 @@ const documentRouter = express.Router();
 
 documentRouter.post('/', upload.single('file'),  authenticateToken(['admin','editor','viewer']), DocumentController.uploadDocument);
 documentRouter.get('/',  authenticateToken(['admin','editor','viewer']), DocumentController.getDocuments);
+documentRouter.put('/',  authenticateToken(['admin','editor','viewer']), DocumentController.updateDocument);
+documentRouter.get('/:documentId',  authenticateToken(['admin','editor','viewer']), DocumentController.deleteDocument);
 
 
 export default documentRouter;

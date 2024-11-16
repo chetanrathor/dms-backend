@@ -26,8 +26,8 @@ export class CreateDocumentService {
                 documentUrl:Location,
                 name,
                 isActive,
-                projectId,
-                userId: userId,
+                project:project._id,
+                user:userId,
             });
             await Project.findByIdAndUpdate(projectId, {
                 $push: { documents: document._id },
