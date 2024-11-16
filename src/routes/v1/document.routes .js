@@ -11,6 +11,7 @@ import upload from '../../libs/upload.js';
 const documentRouter = express.Router();
 
 documentRouter.post('/', upload.single('file'),  authenticateToken(['admin','editor','viewer']), DocumentController.uploadDocument);
+documentRouter.get('/',  authenticateToken(['admin','editor','viewer']), DocumentController.getDocuments);
 
 
 export default documentRouter;

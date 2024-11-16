@@ -45,4 +45,5 @@ export default { models };
 /**
  * @typedef {Object} Context
  * @property {Models} Models
+ * @property {import('mongoose')} mongoose
  */

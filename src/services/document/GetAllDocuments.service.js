@@ -1,4 +1,4 @@
-export class GetAllProjectsService {
+export class GetAllDocumentsService {
     /**
      * Retrieve all projects with pagination.
      * @param {Object} args - The query parameters.
@@ -9,23 +9,19 @@ export class GetAllProjectsService {
      */
     static async execute(args, context) {
         const { limit = 10, offset = 0 } = args; // Default values for limit and offset
-        const { Models: { Project } } = context;
+        const { Models: { Document } } = context;
 
         try {
-            const projects = await Project.find()
-                .populate({
-                    path: 'documents',
-                    select: 'name documentUrl isActive createdAt', // Only populate specific fields
-                })
+            const documents = await Document.find().populate('projectId')
                 .skip(Number(offset))
                 .limit(Number(limit));
 
-            const total = await Project.countDocuments(); // Get the total number of projects
+            const total = await Document.countDocuments(); // Get the total number of projects
 
             return {
                 status: 200,
                 data: {
-                    rows: projects,
+                    rows: documents,
                     count: total
                 },
             };
